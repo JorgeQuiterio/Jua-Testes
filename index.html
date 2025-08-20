@@ -40,6 +40,31 @@
   });
 </script>
 
+// Submissão do formulário -> envia pro Google Sheets
+document.getElementById("popup-form").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const dados = {
+    nome: this.nome.value,
+    telefone: this.telefone.value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbwgq-FFWMz8xHxhffPwSSTi3u-ZvFbSTrZFIE-fm5sRgTTDDj1LHoeo2NZ__F16mBzORA/exec", {
+    method: "POST",
+    body: JSON.stringify(dados)
+  })
+  .then(r => r.text())
+  .then(resp => {
+    alert("Obrigado! Seu cupom foi resgatado 🎉");
+    document.getElementById("popup-overlay").style.display = "none";
+    document.getElementById("popup-container").style.display = "none";
+  })
+  .catch(err => {
+    alert("Erro ao enviar dados, tente novamente.");
+  });
+});
+
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" lang="pt"><head><meta http-equiv="origin-trial" content="A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
   <link rel="preconnect" href="https://acdn-us.mitiendanube.com">
   <link rel="dns-prefetch" href="https://acdn-us.mitiendanube.com">
